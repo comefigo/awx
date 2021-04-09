@@ -26,6 +26,8 @@
       mode: "0600"
     - file: redis.conf
       mode: "0664"
+    - file: tower_settings.py
+      mode: "0600"
   register: awx_compose_config
 
 - name: Render SECRET_KEY file
@@ -46,6 +48,7 @@
       shell: docker-compose run --rm --service-ports task awx-manage migrate --no-input
       args:
         chdir: "{{ docker_compose_dir }}"
+      when: inventory_hostname == hostvars.keys() | first
 
     - name: Start the containers
       docker_compose:

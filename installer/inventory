@@ -1,6 +1,14 @@
-localhost ansible_connection=local ansible_python_interpreter="/usr/bin/env python3"
+# localhost ansible_connection=local ansible_python_interpreter="/usr/bin/env python3"
+
+[tower]
+awx1 ansible_host=x.x.x.x
+awx2 ansible_host=x.x.x.x
+awx3 ansible_host=x.x.x.x
 
 [all:vars]
+
+ansible_ssh_private_key_file="~/.ssh/xxx"
+ansible_python_interpreter="/usr/bin/env python3"
 
 # Remove these lines if you want to run a local image build
 # Otherwise the setup playbook will install the official Ansible images. Versions may
@@ -83,7 +91,7 @@ docker_compose_dir="~/.awx/awxcompose"
 
 # Set pg_hostname if you have an external postgres server, otherwise
 # a new postgres service will be created
-# pg_hostname=postgresql
+pg_hostname=<postgres hostname or IP>
 pg_username=awx
 # pg_password should be random 10 character alphanumeric string, when postgresql is running on kubernetes
 # NB: it's a limitation of the "official" postgres helm chart
@@ -105,7 +113,7 @@ pg_port=5432
 # This will create or update a default admin (superuser) account in AWX, if not provided
 # then these default values are used
 admin_user=admin
-# admin_password=password
+admin_password=password
 
 # Whether or not to create preload data for demonstration purposes
 create_preload_data=True

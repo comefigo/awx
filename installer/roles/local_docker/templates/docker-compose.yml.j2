@@ -100,7 +100,7 @@ services:
       - postgres
       {% endif %}
     command: /usr/bin/launch_awx_task.sh
-    hostname: {{ awx_task_hostname }}
+    hostname: {{ inventory_hostname }}
     user: root
     restart: unless-stopped
     volumes:
@@ -111,6 +111,7 @@ services:
       - "{{ docker_compose_dir }}/environment.sh:/etc/tower/conf.d/environment.sh"
       - "{{ docker_compose_dir }}/credentials.py:/etc/tower/conf.d/credentials.py"
       - "{{ docker_compose_dir }}/redis_socket:/var/run/redis/:rw"
+      - "{{ docker_compose_dir }}/tower_settings.py:/etc/tower/settings.py"
     {% if project_data_dir is defined %}
       - "{{ project_data_dir +':/var/lib/awx/projects:rw' }}"
     {% endif %}
