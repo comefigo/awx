@@ -27,7 +27,7 @@ AWX_PROOT_ENABLED = False
 
 
 CLUSTER_HOST_ID = "{{ inventory_hostname }}"
-SYSTEM_UUID = "00000000-0000-0000-0000-000000000{{ '%03d' | format(999 | random(step=1)) }}"
+SYSTEM_UUID = "{{ inventory_hostname | to_uuid }}"
 
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
